@@ -13,9 +13,7 @@ int main(){
         printf("Error: los numeros deben tener maximo 3 digitos\n");
         return 0;
     }
-    for(int i=0; i<5; i++){
-        prom += vec[i];
-    }
+    
     prom = prom/5;
     printf("%f\n", prom);
     for(int i=0; i<5; i++){
