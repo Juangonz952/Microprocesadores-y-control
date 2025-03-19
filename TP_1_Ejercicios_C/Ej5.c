@@ -1,16 +1,16 @@
 #include <stdio.h>
+#include <stdint.h>
+
+#define CANTIDAD (uint8_t)10
+
 
 int main(){
-    int vec[10] = {0};
-    char exit;
-    int f=0;
-    while(exit != 'q'){
-        for(f=0; f<10; f++){
-            scanf("%c,%d",&exit, &vec[f]);
+    int vec[CANTIDAD] = {0};
+    int aux;
 
-    }}
-    for(int i=0; i<10; i++){
-        printf("%d\n", vec[i]);
-    }
     return 0;
+}
+
+uint8_t Es_Exit(char caracter){
+    
 }

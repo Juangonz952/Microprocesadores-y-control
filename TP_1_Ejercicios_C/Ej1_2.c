@@ -1,31 +1,47 @@
 #include <stdio.h>
+#include <stdint.h>
+#include <string.h>
 
+#define CANTIDAD (uint8_t) 5
+uint8_t Es_Numero(char caracter);
 int main(){
-    int vec[5];
+    int vec[CANTIDAD];
     int f=0;
     float prom;
-    scanf("%d,%d,%d,%d,%d,%d", &vec[0], &vec[1], &vec[2], &vec[3], &vec[4], &f);
-    if(f != 0){
-        printf("Error: la cantidad de numeros ingresados es incorrecta (maximo 5 numeros) \n");
-        return 0;
+    
+    printf("Ingrese %d numeros enteros, signados y de maximo 3 digitos que esten separados por coma: ",CANTIDAD);
+
+    for (int i=0; i<CANTIDAD ;i++){
+        if(vec[i]>999 || vec[i]<-999){
+            printf("Error: los numeros deben tener maximo 3 digitos\n");
+            return 0;
+        }
     }
-    if(vec[0]>999 || vec[0]<-999 || vec[1]>999 || vec[1]<-999 || vec[2]>999 || vec[2]<-999 || vec[3]>999 || vec[3]<-999 || vec[4]>999 || vec[5]<-999){
-        printf("Error: los numeros deben tener maximo 3 digitos\n");
-        return 0;
-    }
-    for(int i=0; i<5; i++){
+    for(int i=0; i<CANTIDAD; i++){
         prom += vec[i];
     }
-    prom = prom/5;
-    printf("%f\n", prom);
-    for(int i=0; i<5; i++){
-        for(int j=0; j<5; j++){
+    prom = prom/CANTIDAD;
+    printf("el promedio es %f\n", prom);
+    for(int i=0; i<CANTIDAD; i++){
+        for(int j=i+1; j<CANTIDAD; j++){
             if(vec[i]<vec[j]){
                 int aux = vec[i];
                 vec[i] = vec[j];
                 vec[j] = aux;
             }
         }
+    }
+    printf("Los numeros ordenados de menor a mayor son: ");
+    for(int i=0; i<CANTIDAD; i++){
+        printf("%d ", vec[i]);
+    }
+    printf("\n");
+    return 0;
+}
+
+uint8_t Es_Numero(char caracter){
+    if(caracter>='0' && caracter<='9' || caracter == '-' || caracter == ','){
+        return 1;
     }
     return 0;
 }
