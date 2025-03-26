@@ -16,10 +16,10 @@ int main(){
     int num=0; 
     int signo; 
 
-    printf("Ingrese %d numeros enteros, signados y de maximo %d digitos que esten separados por coma: ",CANTIDAD, DIGITOS);
+    printf("Ingrese %d numeros enteros, signados y de maximo %d digitos que esten separados por coma:\n ",CANTIDAD, DIGITOS);
     c = fgetc(stdin);
     while(f < CANTIDAD && Es_Numero(c) == (uint8_t) 1){
-        if (c !=','){
+        if (c !=',' && c != '\n'){
             if (c != '-'){
                 num = 10*num + (c - '0');
             }
@@ -27,30 +27,25 @@ int main(){
                 signo = -1;
             }
         }
-        if (c == ','){
+        if (c == ',' || c == '\n'){
             vec[f] = num*signo;
-            num = 0;
-            f++;
-            signo = 1;
             if (f > CANTIDAD){
                 printf("Superaste la cantidad de numeros requeridos (%d)\nFin de Programa",CANTIDAD);
             }
             if ( vec[f]> potencia(10,DIGITOS) - 1 || vec[f] < -(potencia(10,DIGITOS)-1)){
-                printf("Alguno de los numeros esta fuera del rango de %d digitos \nFin del Programa",DIGITOS);
+                printf("Alguno de los numeros esta fuera del rango de %d digitoss \nFin del Programa",DIGITOS);
                 return 2;
             }
+            num = 0;
+            f++;
+            signo = 1;
+            
             
         }
         
         c = fgetc(stdin);
         }
-    if (c == '\n'){
-        vec[f] = num*signo;
-        if ( vec[f]> potencia(10,DIGITOS) - 1 || vec[f] < -(potencia(10,DIGITOS)-1)){
-            printf("Alguno de los numeros esta fuera del rango de %d digitos \n Fin del Programa",DIGITOS);
-            return 2;
-        }
-    }    
+        
     if (Es_Numero(c) != 1){
         printf("Alguno de los valores introducidos no es un numero \nfin de programa");
         return 1;
@@ -78,7 +73,7 @@ int main(){
 }
 
 uint8_t Es_Numero(char c){
-    if((c<='9' && c >= '0' )|| c == '-' || c == ',' || c == '/n'){
+    if((c<='9' && c >= '0' )|| c == '-' || c == ',' || c == '\n'){
         return (uint8_t) 1;
     }
     else { 
