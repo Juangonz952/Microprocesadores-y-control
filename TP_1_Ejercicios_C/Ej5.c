@@ -6,6 +6,7 @@
 #define CANTIDAD (uint8_t)10
 #define BUFFER (uint8_t)20
 
+
 uint8_t Es_Valido(char c[BUFFER]);
 
 int main(){
@@ -48,9 +49,13 @@ int main(){
 }
 
 uint8_t Es_Valido(char c[BUFFER]){
+    int inicio = 0;
     int index;
-    for(index = 0; index < BUFFER && c[index] != '\0'; index++){
-        if((c[index] < '0' || c[index] > '9') && strcmp(c,"EXIT") !=0 && (c[index] == '-' && index !=0)){
+    if (c[0] == '-' ){
+        inicio = 1;
+    }
+    for(index = inicio; index < BUFFER && c[index] != '\0'; index++){
+        if((c[index] < '0' || c[index] > '9') && (strcmp(c,"EXIT") !=0)){
             return (uint8_t) 1;
         }
     }
