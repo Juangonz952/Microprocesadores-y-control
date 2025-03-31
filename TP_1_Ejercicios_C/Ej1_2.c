@@ -1,54 +1,71 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <stdlib.h>
+#include <math.h>
 
 #define CANTIDAD (uint8_t) 5
 #define DIGITOS (uint8_t) 3
+#define TRUE (uint8_t) 1
+#define FALSE (uint8_t) 0
 
-uint8_t Es_Numero(char caracter);
-uint8_t potencia(uint8_t x,uint8_t n);
+
+uint8_t Es_Valido(char caracter);
 
 int main(){
-    int vec[CANTIDAD];
+    int vec[CANTIDAD] = {0};
     int f=0;
-    float prom;
-    char c;
+    float prom =0;
+    char c = '0';
     int num=0; 
-    int signo; 
+    int signo = 1;
+    int dig =0; 
 
-    printf("Ingrese %d numeros enteros, signados y de maximo %d digitos que esten separados por coma:\n ",CANTIDAD, DIGITOS);
+    printf("Ingrese %d numeros enteros, signados y de maximo %d digitos que esten separados por coma:\n",CANTIDAD, DIGITOS);
     c = fgetc(stdin);
-    while(f < CANTIDAD && Es_Numero(c) == (uint8_t) 1){
-        if (c !=',' && c != '\n'){
-            if (c != '-'){
-                num = 10*num + (c - '0');
-            }
-            if (c == '-'){
+    while( Es_Valido(c) == TRUE && f < CANTIDAD){
+        if (c == '-' ){
+            if(dig != 0){
+                printf("Ha ingresado un caracter no valido\n*****Fin del Programa*****\n");
+                return 1;
+                }
+            else{
                 signo = -1;
+                c = fgetc(stdin);
             }
+            
         }
-        if (c == ',' || c == '\n'){
-            vec[f] = num*signo;
-            if (f > CANTIDAD){
-                printf("Superaste la cantidad de numeros requeridos (%d)\nFin de Programa",CANTIDAD);
+        if(c != '-' && c!= ','){
+            num = 10*num + (c-'0');
+            c = fgetc(stdin);
+            dig++;
+        }
+        if (c == ','){
+            vec[f] = signo*num;
+            if (vec[f] > pow(10,DIGITOS)-1 || vec[f] < -(pow(10,DIGITOS) -1)){
+                printf("%d ha excedido la cantidad de %d digitos admitidos\n*******Fin del programa*******\n",vec[f],DIGITOS);
+                return 1;
             }
-            if ( vec[f]> potencia(10,DIGITOS) - 1 || vec[f] < -(potencia(10,DIGITOS)-1)){
-                printf("Alguno de los numeros esta fuera del rango de %d digitoss \nFin del Programa",DIGITOS);
-                return 2;
-            }
+            signo = 1;
             num = 0;
             f++;
-            signo = 1;
-            
-            
+            dig = 0;
+            c = fgetc(stdin);
         }
-        
-        c = fgetc(stdin);
-        }
-        
-    if (Es_Numero(c) != 1){
-        printf("Alguno de los valores introducidos no es un numero \nfin de programa");
+    }
+    if(c == ','){
+        printf("Ha intentado ingresar mas de %d valores, solo los primeros %d valores seran tenidos en cuenta\n",CANTIDAD,CANTIDAD);
+    }
+    if( Es_Valido(c) == FALSE && c!= '\n'){
+        printf("Ha ingresado un caracter no valido \nFin del Programa");
         return 1;
+    }    
+    if( c == '\n'){
+        vec[f] = signo*num;
+        if (vec[f] > pow(10,DIGITOS)-1 || vec[f] < -(pow(10,DIGITOS) -1)){
+            printf("%d ha excedido la cantidad de %d digitos admitidos\n*******Fin del programa*******\n",vec[f],DIGITOS);
+            return 1;
+        }
     }
     for(int i=0; i<CANTIDAD; i++){
         prom += vec[i];
@@ -72,18 +89,10 @@ int main(){
     return 0;
 }
 
-uint8_t Es_Numero(char c){
-    if((c<='9' && c >= '0' )|| c == '-' || c == ',' || c == '\n'){
-        return (uint8_t) 1;
+uint8_t Es_Valido(char c){
+    if((c<='9' && c >= '0' )|| c == '-' || c == ','){
+        return TRUE;
     }
     else { 
-    return (uint8_t) 0;}
-}
-
-uint8_t potencia(uint8_t x,uint8_t n){
-    uint8_t y=1;
-    for(int i=0;i<n;i++){
-        y *= x;
-    }
-    return y;
+    return FALSE;}
 }
