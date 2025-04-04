@@ -2,22 +2,29 @@
 #define VECTORES_H
 
 #include <math.h>
-
+#include <stdio.h>
+#include <stdint.h>
+#include <string.h>
+#include <stdlib.h>
 
 typedef struct vector_t{
     int x;
     int y;
-    int z;
-    double (*norma_2) (int x, int y, int z);
+    int z;    
 }vector_t;
 
+typedef struct operaciones_t{
+    double (*norma_2) (vector_t	*v1);
+    vector_t (*Adicion) (vector_t *v1, vector_t *v2,int suma_o_resta);
+    int (*Producto_Interno) (vector_t *v1, vector_t *v2);
+    vector_t (*Producto_Externo) (vector_t *v1,vector_t *v2);
+}operaciones_t;
 
 /* prototipos */
-static double norma_2(int x, int y, int z);
-
+double norma_2(vector_t *vec);
+vector_t Adicion(vector_t *vec1, vector_t *vec2,int suma_o_resta);
+int Producto_Interno(vector_t *v1, vector_t *v2);
+vector_t Producto_Externo(vector_t *v1,vector_t *v2);
 /* funciones */
 
-static double norma_2(int x, int y, int z){
-    return sqrt(pow(x,2) + pow(y,2) + pow(z,2));
-}
-#endif
+#endif /* VECTORES_H */
