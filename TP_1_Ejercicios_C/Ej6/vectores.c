@@ -26,3 +26,5 @@ vector_t Producto_Externo(vector_t *v1,vector_t *v2){
     vec_resultante.z = (v1->x)*(v2->y) - (v2->x)*(v1->y);
     return vec_resultante;
 }
+
+
