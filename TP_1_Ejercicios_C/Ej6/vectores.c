@@ -2,6 +2,9 @@
 
 /* librerias */
 #include "vectores.h"
+#include <math.h>
+#include <stdio.h>
+
 
 /* funciones */
 double norma_2(vector_t *vec){
