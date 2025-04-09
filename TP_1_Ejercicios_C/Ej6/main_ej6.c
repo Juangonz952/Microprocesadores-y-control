@@ -1,28 +1,51 @@
 
 #include "vectores.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <string.h>
-#include <math.h>
 
 int main(){
     vector_t v1,v2,vec;
+    double n;
     int a;
-    v1.x = 1;
-    v1.y =5;
-    v1.z = 13;
-    v2.x = -5;
-    v2.y = 7;
-    v2.z = -1;
-    vec = Adicion(&v1, &v2, 1);
-    printf("La suma de los vectores es: (%d,%d,%d)\n",vec.x,vec.y,vec.z);
-    a = Producto_Interno(&v1,&v2);
-    printf("Producto Interno %d",a);
+    v1 = inicializar_vector(1,-5,13);   
+    v2 = inicializar_vector(-5,7,-1);
+    printf("V1 =");
+    imprimir_vector(&v1);
+    printf("\n");
+    printf("V2 =");
+    imprimir_vector(&v2);
+    printf("\n");
+    n = v1.norma(v1.x,v1.y,v1.z);
+    printf("||");
+    imprimir_vector(&v1);
+    printf("|| =");
+    printf(" %f\n", n);
+    vec = Adicion(&v1, SUMA,&v2);
+    imprimir_vector(&v1);
+    printf(" +");
+    imprimir_vector(&v2);
+    printf(" =");
+    imprimir_vector(&vec);
+    printf("\n");
+    vec = Adicion(&v1, RESTA,&v2);
+    imprimir_vector(&v1);
+    printf(" -");
+    imprimir_vector(&v2);
+    printf(" =");
+    imprimir_vector(&vec);
+    printf("\n");
+    a = Producto_Interno(&v1,&v2);imprimir_vector(&v1);
+    printf(" . ");
+    imprimir_vector(&v2);
+    printf(" = %d",a);
+    printf("\n");
     vec = Producto_Externo(&v1,&v2);
-    printf("El Producto Externo de los vectores 31231 es: (%d,%d,%d)\n",vec.x,vec.y,vec.z);
+    imprimir_vector(&v1);
+    printf(" x ");
+    imprimir_vector(&v2);
+    printf(" =");
+    imprimir_vector(&vec);
+    printf("\n");
    
-    printf("Norma de v1: %f\n", norma_2(&v1));
+  
 
     return 0;
 }

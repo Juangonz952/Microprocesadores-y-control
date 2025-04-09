@@ -6,11 +6,31 @@
 #include <stdio.h>
 
 
-/* funciones */
+double norma_2b(int x, int y, int z){
+    return sqrt(pow(x,2) + pow(y,2) + pow(z,2));
+}
+
+vector_t inicializar_vector(int x,int y,int z){
+    vector_t vec;
+    vec.x = x;
+    vec.y = y;
+    vec.z = z;
+    vec.norma = norma_2b;
+    return vec;    
+}
+
 double norma_2(vector_t *vec){
     return sqrt(pow(vec->x,2) + pow(vec->y,2) + pow(vec->z,2));
 }
-vector_t Adicion(vector_t *vec1, vector_t *vec2, int suma_o_resta){
+
+void imprimir_vector(vector_t *v){
+    printf(" ( %d, %d, %d)", v->x,v->y,v->z);
+}
+/* funciones */
+
+
+
+vector_t Adicion(vector_t *vec1, int suma_o_resta, vector_t *vec2){
     vector_t vec_resultado;
     vec_resultado.x = vec1->x + (vec2->x)*(suma_o_resta);
     vec_resultado.y = vec1->y + (vec2->y)*(suma_o_resta);

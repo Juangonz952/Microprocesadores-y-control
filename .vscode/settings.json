@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "*.rmd": "markdown",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "stdint.h": "c",
+        "vectores.h": "c"
     }
 }
