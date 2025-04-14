@@ -23,7 +23,7 @@ double norma_2(vector_t *vec){
     return sqrt(pow(vec->x,2) + pow(vec->y,2) + pow(vec->z,2));
 }
 
-void imprimir_vector(vector_t *v){
+void imprimir_vector(vector_t *v){ 
     printf(" ( %d, %d, %d)", v->x,v->y,v->z);
 }
 /* funciones */
