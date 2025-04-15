@@ -56,7 +56,7 @@ int main() {
     T.Imprimir(&T);
 
     // Potencia A^2
-    matriz_t A2 = A.Potencia(&A, 2);
+    matriz_t A2 = A.Potencia(&A, 22225);
     printf("\n\nA al cuadrado (A^2):");
     A2.Imprimir(&A2);
 
