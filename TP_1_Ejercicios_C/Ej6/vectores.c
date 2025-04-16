@@ -2,20 +2,17 @@
 
 /* librerias */
 #include "vectores.h"
-#include <math.h>
-#include <stdio.h>
 
-
-double norma_2b(int x, int y, int z){
-    return sqrt(pow(x,2) + pow(y,2) + pow(z,2));
-}
-
-vector_t inicializar_vector(int x,int y,int z){
+vector_t inicializar_vector(float x, float y, float z){
     vector_t vec;
     vec.x = x;
     vec.y = y;
     vec.z = z;
-    vec.norma = norma_2b;
+    vec.norma = norma_2;
+    vec.imprimir = imprimir_vector;
+    vec.Adicion = Adicion;
+    vec.producto_interno = Producto_Interno;
+    vec.producto_X = Producto_Externo;
     return vec;    
 }
 
@@ -38,7 +35,7 @@ vector_t Adicion(vector_t *vec1, int suma_o_resta, vector_t *vec2){
     return vec_resultado;
 }
 
-int Producto_Interno(vector_t *v1, vector_t *v2){
+float Producto_Interno(vector_t *v1, vector_t *v2){
     return (v1->x)*(v2->x) + (v2->y)*(v1->y) + (v1->z)*(v2->z);
 }
 

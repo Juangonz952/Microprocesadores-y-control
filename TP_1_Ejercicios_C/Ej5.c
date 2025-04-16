@@ -5,13 +5,14 @@
 
 #define CANTIDAD (uint8_t)10
 #define BUFFER (uint8_t)20
-
+#define VALIDO 0
+#define INVALIDO 1
 
 uint8_t Es_Valido(char c[BUFFER]);
 
 int main(){
     char c[BUFFER] = {0};
-    int vec[CANTIDAD] = {0};
+    int vec[CANTIDAD] = {0},cant=0;
     float promedio = 0;
     while(strcmp(c,"EXIT") != 0){
         printf("Ingrese numeros enteros y se calculara el promedio de los ultimos %d numeros ingresados\n", CANTIDAD);
@@ -22,7 +23,7 @@ int main(){
                 c[i] = '\0';
             }
         }
-        while(Es_Valido(c) == 1){
+        while(Es_Valido(c) == INVALIDO){
             printf("Ha ingresado un caracter no valido y no sera tenido en cuenta.\nPor favor vuelva a ingresar valores o EXIT: \n");
             fgets(c,BUFFER,stdin);
             for(int i=0; i<BUFFER; i++){
@@ -32,12 +33,25 @@ int main(){
             }
             
         }
-        if(Es_Valido(c)== 0){
-            for(int i= 0;i < CANTIDAD;i++){
-                vec[i] = vec[i+1];
+        if(Es_Valido(c)== VALIDO){
+            cant+=1;
+            if(cant > CANTIDAD){
+                promedio = promedio - (float)vec[0]/CANTIDAD + (float)atoi(c)/CANTIDAD;
+                for(int i= 0;i < CANTIDAD;i++){
+                    vec[i] = vec[i+1];
+                }
+                vec[CANTIDAD] = atoi(c);
             }
-            vec[CANTIDAD] = atoi(c);
-            promedio = promedio - (float)vec[0]/CANTIDAD + (float)vec[CANTIDAD]/CANTIDAD;
+            if(cant <= CANTIDAD){
+                for(int i= 0;i < CANTIDAD;i++){
+                    vec[i] = vec[i+1];
+                }
+                vec[CANTIDAD] = atoi(c);
+                promedio=0;
+                for(int i=0;i<CANTIDAD;i++){
+                    promedio += vec[i]/cant;
+                }
+            }
             printf("El promedio es: %f \n",promedio);
         }
 
@@ -56,8 +70,8 @@ uint8_t Es_Valido(char c[BUFFER]){
     }
     for(index = inicio; index < BUFFER && c[index] != '\0'; index++){
         if((c[index] < '0' || c[index] > '9') && (strcmp(c,"EXIT") !=0)){
-            return (uint8_t) 1;
+            return (uint8_t) INVALIDO;
         }
     }
-    return (uint8_t) 0;
+    return (uint8_t) VALIDO;
 }
